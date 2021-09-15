@@ -4,8 +4,7 @@ from django.shortcuts import render
 
 
 def index(request):
-    return render(request, 'mainapp/index.html', {'title': 'GeekShop', 'datetime': datetime.now()
-    })
+    return render(request, 'mainapp/index.html', {'title': 'GeekShop', 'datetime': datetime.now()})
 
 
 def products(request):
