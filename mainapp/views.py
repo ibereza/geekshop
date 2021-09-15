@@ -10,10 +10,10 @@ def index(request):
 
 def products(request):
     with open('mainapp/fixtu/products.json', encoding='UTF-8') as f:
-        product_base = json.load(f)
+        products_base = json.load(f)
     content = {
         'title': 'GeekShop - Каталог',
         'datetime': datetime.now(),
-        'cards': product_base
+        'cards': products_base
     }
     return render(request, 'mainapp/products.html', content)
