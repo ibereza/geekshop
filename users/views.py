@@ -54,10 +54,18 @@ def profile(request):
             return HttpResponseRedirect(reverse('users:profile'))
         else:
             print(form.errors)
+    baskets = Basket.objects.filter(user=request.user)
+    products_count = 0
+    products_sum = 0
+    for basket in baskets:
+        products_count += basket.quantity
+        products_sum += basket.quantity * basket.product.price
     context = {
         'title': 'Geekshop - Профайл',
         'form': UserProfileForm(instance=request.user),  # instance - заполнит поля текущими значениями
-        'baskets': Basket.objects.filter(user=request.user)
+        'baskets': baskets,
+        'products_count': products_count,
+        'products_sum': products_sum
     }
     return render(request, 'users/profile.html', context)
 
