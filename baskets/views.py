@@ -18,3 +18,8 @@ def basket_add(request, product_id):
         basket.save()
 
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))  # вызываем ту же страницу (останемся там же)
+
+
+def basket_remove(request, product_id):
+    Basket.objects.get(id=product_id).delete()
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
