@@ -1,8 +1,9 @@
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 
-from admins.forms import UserAdminRegisterForm
+from admins.forms import UserAdminRegisterForm, UserAdminProfileForm
 from users.models import User
 
 
@@ -34,7 +35,15 @@ class UserCreateView(CreateView):
 
 
 class UserUpdateView(UpdateView):
-    pass
+    model = User
+    template_name = 'admins/admin-users-update-delete.html'
+    form_class = UserAdminProfileForm
+    success_url = reverse_lazy('admins:admins_user')
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(UserUpdateView, self).get_context_data(**kwargs)
+        context['title'] = 'Админка | Обновление пользователя'
+        return context
 
 
 class UserDeleteView(DeleteView):

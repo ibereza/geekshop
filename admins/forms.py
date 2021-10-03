@@ -1,7 +1,8 @@
 from django import forms
 
-from users.forms import UserRegisterForm
+from users.forms import UserRegisterForm, UserProfileForm
 from users.models import User
+
 
 class UserAdminRegisterForm(UserRegisterForm):
     image = forms.ImageField(widget=forms.FileInput(), required=False)
@@ -18,3 +19,11 @@ class UserAdminRegisterForm(UserRegisterForm):
                 field.widget.attrs['class'] = 'form-control'
             else:
                 field.widget.attrs['class'] = 'form-control py-4'
+
+
+class UserAdminProfileForm(UserProfileForm):
+
+    def __init__(self, *args, **kwargs):
+        super(UserAdminProfileForm, self).__init__(*args, **kwargs)
+        self.fields['username'].widget.attrs['readonly'] = False
+        self.fields['email'].widget.attrs['readonly'] = False
